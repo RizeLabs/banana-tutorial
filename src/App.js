@@ -20,7 +20,7 @@ function App() {
   const [messageTobeSigned, setMessageTobeSigned] = useState('');
 
   const getBananaInstance = () => {
-    const jsonRpcMumbaiUrl = 'https://polygon-mumbai.g.alchemy.com/v2/cNkdRWeB8oylSQJSA2V3Xev2PYh5YGr4'
+    const jsonRpcMumbaiUrl = 'https://polygon-mumbai.g.alchemy.com/v2/{ALCHEMY_POLYGON_MUMBAI_RPC_TOKEN}'
     const bananaInstance = new Banana(Chains.mumbai, jsonRpcMumbaiUrl);
     setBananSdkInstance(bananaInstance)
   }
