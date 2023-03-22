@@ -62,6 +62,6 @@ echo "******************************************* Installing necessary packages 
 npm install stream-browserify constants-browserify crypto-browserify os-browserify path-browserify process stream-browserify antd axios webpack buffer ethers@^5.7.2 react-icons@^4.7.1 react-copy-to-clipboard react-hot-toast & spinner $!
 
 echo "**********************************Installing Banana Wallet SDK **********************************"
-npm install @rize-labs/banana-wallet-sdk & spinner $!
+npm install @rize-labs/banana-wallet-sdk@0.1.12 & spinner $!
 
-echo "Installation complete done ✨ˇ.
+echo "Installation complete done ✨".
