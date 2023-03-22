@@ -31,7 +31,13 @@ function App() {
       return;
     }
     setIsLoading(true);
-    const walletAddres = await bananaSdkInstance.getWalletAddress(walletName);
+    const isWalletNameUnqiue = await bananaSdkInstance.isWalletNameUnique(walletName);
+    if(!isWalletNameUnqiue) {
+      alert("Wallet name provided is not unique");
+      setIsLoading(false);
+      return
+    }
+    const walletAddres = (await bananaSdkInstance.createWallet(walletName)).address
     console.log(walletAddres);
     setWalletAddress(walletAddres)
     setIsLoading(false);
@@ -41,7 +47,7 @@ function App() {
     const walletName = bananaSdkInstance.getWalletName();
     if(walletName) {
       setIsLoading(true)
-      const walletAddress = await bananaSdkInstance.getWalletAddress(walletName)
+      const walletAddress = (await bananaSdkInstance.connectWallet(walletName)).address
       setWalletAddress(walletAddress)
       setIsLoading(false);
     } else {
@@ -52,14 +58,14 @@ function App() {
 
   const makeTransaction = async () => {
 
-    let aaProvider = await bananaSdkInstance.getAAProvider();
-    let aaSigner = aaProvider.getSigner();
+    let bananaProvider = await bananaSdkInstance.getBananaProvider();
+    let bananaSigner = bananaProvider.getSigner();
     const greeterAddress = "0x454d3A39dFf28E15b82DE77122e3b0beb461CF22";
 
     let greeterContract = new ethers.Contract(
       greeterAddress,
       GreeterArtifact.abi,
-      aaSigner
+      bananaSigner
     );
 
     const updateValueCallData = greeterContract.interface.encodeFunctionData("updateValue", ["10"]);
@@ -79,9 +85,14 @@ function App() {
 
   const signMessage = async () => {
     setIsLoading(true)
-    const response = await bananaSdkInstance.signMessage(messageTobeSigned, true);
-    setSignedMessage(response.signedMessage)
-    setSignature(response.signature);
+    const sampleMsg = "Hello World"; 
+    const eoaAddress = await bananaSdkInstance.getEOAAddress();
+    const signMessageResponse = await bananaSdkInstance.signMessage(sampleMsg);
+    const messageSigned = signMessageResponse.messageSigned;
+    const signature = signMessageResponse.signature;
+    console.log(messageSigned, signature, eoaAddress);
+    const isVerified = await bananaSdkInstance.verifySignature(signature, messageSigned, eoaAddress);
+    console.log(isVerified);
     setIsLoading(false)
   }
 
