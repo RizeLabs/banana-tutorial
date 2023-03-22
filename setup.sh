@@ -1,23 +1,24 @@
 #!/bin/bash
 
-# Check if npm_token is provided as an argument
-if [ $# -eq 0 ]
-  then
-    echo "No npm_token provided"
-    exit 1
-fi
+spinner() {
+    local pid=$1
+    local delay=0.1
+    local spinstr='|/-\'
+    local i=0
+    while [ "$(ps a | awk '{print $1}' | grep $pid)" ]; do
+        local temp=${spinstr#?}
+        printf "[%c] " "$spinstr"
+        local spinstr=$temp${spinstr%"$temp"}
+        sleep $delay
+        printf "\b\b\b\b\b\b"
+        i=$(( (i+1) %4 ))
+    done
+    printf "    \b\b\b\b"
+}
+echo "******************************** Installing react-app-rewired *******************************************"
+npm install react-app-rewired & spinner $!
 
-# Create .npmrc file
-
-echo "@rize-labs:registry=https://registry.npmjs.org/" > .npmrc
-echo "//registry.npmjs.org/:_authToken=$1" >> .npmrc
-
-echo "************************** Created npm config file **************************"
-
-# Install react-app-rewired
-npm install react-app-rewired
-
-# Create config-overrides.js file
+echo "Creating config-overrides.js file..."
 cat <<EOT >> config-overrides.js
 const { ProvidePlugin }= require("webpack")
 
@@ -55,15 +56,12 @@ module.exports = {
 }
 EOT
 
-echo "************************** Created configurations file **************************"
+echo "******************************************* Configurations file created ***********************************"
 
+echo "******************************************* Installing necessary packages **********************************"
+npm install stream-browserify constants-browserify crypto-browserify os-browserify path-browserify process stream-browserify antd axios webpack buffer ethers@^5.7.2 react-icons@^4.7.1 react-copy-to-clipboard react-hot-toast & spinner $!
 
-# Install required packages
-npm install stream-browserify constants-browserify crypto-browserify os-browserify path-browserify process stream-browserify antd axios webpack buffer ethers@^5.7.2 react-icons@^4.7.1 react-copy-to-clipboard react-hot-toast
+echo "**********************************Installing Banana Wallet SDK **********************************"
+npm install @rize-labs/banana-wallet-sdk & spinner $!
 
-echo "************************** Installed necessary packages **************************"
-
-npm install @rize-labs/banana-wallet-sdk
-
-echo "************************** Installed Banana Wallet SDK Lets gooo! **************************"
-
+echo "Installation complete done ✨ˇ.
