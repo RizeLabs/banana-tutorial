@@ -42,6 +42,7 @@ module.exports = {
       fs: false
     }
     config.resolve.extensions = [...config.resolve.extensions, ".ts", ".js"]
+    config.ignoreWarnings = [/Failed to parse source map/];
     config.plugins = [
       ...config.plugins,
       new ProvidePlugin({
