@@ -19,6 +19,7 @@ module.exports = {
       constants: require.resolve("constants-browserify"), 
       fs: false
     }
+    config.ignoreWarnings = [/Failed to parse source map/];
     config.resolve.extensions = [...config.resolve.extensions, ".ts", ".js"]
     config.plugins = [
       ...config.plugins,

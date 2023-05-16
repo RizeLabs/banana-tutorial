@@ -96,6 +96,34 @@ function App() {
     setIsLoading(false)
   }
 
+  const test = async () => {
+
+    const jsonRpcProviderUrl = 'https://rpc.ankr.com/eth_goerli'
+    const bananaInstanceTemp = new Banana(Chains.goerli, jsonRpcProviderUrl);
+
+    console.log('bananaInstanceTemp', bananaInstanceTemp)
+
+    await bananaInstanceTemp.resetWallet();
+
+    const walletNameTemp = 'test-asluddfdfh87234szabc';
+    try {
+      await bananaInstanceTemp.connectWallet(walletNameTemp)
+    } catch (err) {
+      console.log(err)
+    }
+
+    console.log('walletNameTemp', walletNameTemp)
+
+    const isWalletNameUniqueTemp = await bananaInstanceTemp.isWalletNameUnique(walletNameTemp)
+    console.log('isWalletNameUniqueTemp', isWalletNameUniqueTemp)
+
+    const walletAddressTemp = await bananaInstanceTemp.getEOAAddress(walletNameTemp)
+    console.log('walletAddressTemp', walletAddressTemp)
+
+    const bananaProvider = await bananaInstanceTemp.getBananaProvider()
+    console.log('bananaProvider', bananaProvider)
+  }
+
   return (
     <div className="App">
       {isLoading && <p> Loading...</p>}
@@ -108,6 +136,7 @@ function App() {
       <button className='btn' onClick={() => signMessage()}> Sign message  </button>
       {signedMessage && <p>Signed message: {signedMessage} </p>}
       {signature && <p> Signature: {signature} </p>}
+      <button className='btn'onClick={() => test()}  > test </button>
     </div>
   );
 }
