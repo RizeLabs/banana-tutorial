@@ -38,16 +38,18 @@
 }
 
 .btn {
-  display: block;
-  padding: 20px 50px;
-  color: #fff;
-  border: none;
-  margin: auto;
-  font-size: 16px;
-  cursor: pointer;
-  border: 2px solid black;
-  color: black;
-  font-size: 20px;
+    display: block;
+    margin: auto;
+    padding: 10px 40px;
+    background-color: #F5C14B;
+    border-radius: 20px;
+    font-size: 20px;
+    cursor: pointer;
+    border: 1px solid black;
+    color: black;
+    font-size: 14px;
+    margin-top: 1.5%;
+    width: 13%;
 }
 
 .input {
@@ -64,5 +66,21 @@
   height: 6vh;
 }
 
+.output-div {
+  background-color: #E5E4E2;
+  height: 30vh;
+  width: 50vw;
+  border-radius: 10px;
+  overflow-wrap: break-word;
+  word-wrap: break-word;
+  display: block;
+  margin: auto;
+}
+
+.output-div p {
+  padding: 10px;
+  font-family: monospace;
+  font-size: 15px;
+}
 
 
