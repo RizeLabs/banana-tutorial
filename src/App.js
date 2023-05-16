@@ -13,7 +13,7 @@ function App() {
   const [bananaSdkInstance, setBananSdkInstance] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
   const [walletInstance, setWalletInstance] = useState(null);
-  const [output, setOutput] = useState("");
+  const [output, setOutput] = useState("Welcome to Banana Demo");
 
   const SampleContractAddress = "0xCB8a3Ca479aa171aE895A5D2215A9115D261A566";
 
