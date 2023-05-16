@@ -83,7 +83,7 @@ function App() {
   const getChainId = async () => {
     setIsLoading(true);
     const signer = walletInstance.getSigner();
-    const chainid = signer.getChainId();
+    const chainid = await signer.getChainId();
     setOutput(JSON.stringify(chainid));
     setIsLoading(false);
   };
@@ -91,7 +91,7 @@ function App() {
   const getNetwork = async () => {
     setIsLoading(true);
     const provider = walletInstance.getProvider();
-    const network = provider.getNetwork();
+    const network = await provider.getNetwork();
     setOutput(JSON.stringify(network));
     setIsLoading(false);
   };
